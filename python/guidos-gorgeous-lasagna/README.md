@@ -15,11 +15,11 @@ This includes numbers, strings, lists, and even functions.
 We'll dig more into what all of that means as we continue through the track.
 
 This first exercise introduces 4 major Python language features:
-1.  Name Assignment (_variables and constants_),
-2.  Functions (_the `def` keyword and the `return` keyword_),
-3.  Comments, and
-4.  Docstrings.
 
+1. Name Assignment (_variables and constants_),
+2. Functions (_the `def` keyword and the `return` keyword_),
+3. Comments, and
+4. Docstrings.
 
 ~~~~exercism/note
 
@@ -31,12 +31,10 @@ On the Python track, [variables][variables] are always written in [`snake_case`]
 [snake case]: https://en.wikipedia.org/wiki/Snake_case
 ~~~~
 
-
 ## Name Assignment (Variables & Constants)
 
 Programmers can bind [_names_][facts-and-myths-about-python-names] (also called _variables_) to any type of object using the assignment `=` operator: `<name> = <value>`.
 A name can be reassigned (or re-bound) to different values (different object types) over its lifetime.
-
 
 ```python
 >>> my_first_variable = 1  # my_first_variable bound to an integer object of value one.
@@ -56,20 +54,17 @@ A name can be reassigned (or re-bound) to different values (different object typ
 "Now, I'm a string."  # Strings can be declared using single or double quote marks.
 ```
 
-
 ### Constants
 
 Constants are names meant to be assigned only once in a program.
 They should be defined at a [module][module] (file) level, and are typically visible to all functions and classes in the program.
 Using `SCREAMING_SNAKE_CASE` signals that the name should not be re-assigned, or its value mutated.
 
-
 ## Functions
 
 The `def` keyword begins a [function definition][function definition].
 Each function can have zero or more formal [parameters][parameters] in `()` parenthesis, followed by a `:` colon.
 Statements for the _body_ of the function begin on the line following `def` and must be _indented in a block_.
-
 
 ```python
 # The body of a function is indented by 2 spaces, & prints the sum of the numbers.
@@ -113,7 +108,6 @@ def add_two_numbers(number_one, number_two):
 None
 ```
 
-
 ### Calling Functions
 
 Functions are [_called_][calls] or invoked using their name followed by `()`.
@@ -148,19 +142,16 @@ import math
 >>> 16.0
 ```
 
-
 ## Comments
 
 [Comments][comments] in Python start with a `#` that is not part of a string, and end at line termination.
 Unlike many other programming languages, Python **does not support** multi-line comment marks.
 Each line of a comment block must start with the `#` character.
 
-
 ## Docstrings
 
 The first statement of a function body can optionally be a [_docstring_][docstring], which concisely summarizes the function or object's purpose.
 Docstrings are declared using triple double quotes (""") indented at the same level as the code block:
-
 
 ```python
 
@@ -178,12 +169,10 @@ def complex(real=0.0, imag=0.0):
 
 ```
 
-
 Docstrings are read by automated documentation tools and are returned by calling the special attribute `.__doc__` on the function, method, or class name.
 Docstring conventions are laid out in [PEP257][pep257].
 
 Docstrings can also function as [lightweight unit tests][doctests], which will be covered in a later exercise.
-
 
 ```python
 # An example on a user-defined function.
