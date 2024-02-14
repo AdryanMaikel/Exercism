@@ -1,4 +1,8 @@
 def response(hey_bob: str) -> str:
+    """Talking with bob.
+    :param hey_bob: str - Text to talk to bob.
+    :return: str - Bob response.
+    """
     hey_bob = hey_bob.strip()
     if hey_bob.isupper():
         if hey_bob.endswith("?"):
