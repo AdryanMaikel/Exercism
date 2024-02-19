@@ -4,18 +4,13 @@ def is_valid(isbn: str) -> bool:
     :return: bool - If is a valid isbn.
     """
     isbn = isbn.replace("-", "")
-    numbers = []
-    for number in isbn:
-        if number == "X":
-            number = 10
-        numbers.append(int(number))
-
+    if not isbn or (not isbn[-1].isdigit() and not isbn.endswith("X")):
+        return False
+    numbers = [int(char) if char.isdigit() else "ERROR" for char in isbn[:-1]]
+    if "ERROR" in numbers:
+        return False
+    numbers.append(10 if isbn.endswith("X") else int(isbn[-1]))
     if len(numbers) != 10:
         return False
-
-    return (numbers[0] * 10 + numbers[1] * 9 + numbers[2] * 8 + numbers[3] *
-            7 + numbers[4] * 6 + numbers[5] * 5 + numbers[6] * 4 + numbers[7]
-            * 3 + numbers[8] * 2 + numbers[9] * 1) % 11 == 0
-
-
-print(is_valid("3-598-21507-X"))
+    return sum([numbers[i] * j
+                for i, j in enumerate(range(10, 0, -1))]) % 11 == 0
