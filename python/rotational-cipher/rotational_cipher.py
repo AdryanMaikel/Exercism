@@ -1,18 +1,18 @@
-ALPHABET = "abcdefghijklmnopqrstuvwxyz"
-
-
 def rotate(text: str, key: int) -> str:
-    NEW_ALPHABET = {}
-    for i, j in enumerate(range(26)):
-        j = j + key
-        if j >= 26:
-            j -= 26
-        NEW_ALPHABET[i + 1] = ALPHABET[j]
-    print(NEW_ALPHABET)
-
-    # indexes = [i for i, letter in enumerate(ALPHABET) if letter in text]
-    # NEW_ALPHABET = [ALPHABET[(i + key) % 26] for i in range(26)]
-    # return "".join([NEW_ALPHABET[index] for index in indexes])
-
-
-rotate("", 0)
+    """Function that rotates the alphabet passing a number to be
+    incremented in the index.
+    :param text: str - Text to be replaced.
+    :param key: int - Number to be incremented from the letter index in
+    the alphabet.
+    :return: str - New text rotated.
+    """
+    ALPHABET = "abcdefghijklmnopqrstuvwxyz"
+    chars = []
+    for digit in text:
+        if digit.isalpha():
+            index = ALPHABET.index(digit.lower()) + key
+            char = ALPHABET[index if index < 26 else index - 26]
+            chars.append(char if digit.islower() else char.upper())
+        else:
+            chars.append(digit)
+    return "".join(chars)
