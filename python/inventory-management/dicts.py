@@ -52,7 +52,6 @@ def remove_item(inventory: dict[str, int], item: str) -> dict[str, int]:
     """
     if item in inventory:
         del inventory[item]
-        inventory.__delitem__(item)
     return inventory
 
 
