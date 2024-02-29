@@ -1,19 +1,9 @@
-OPERATORS = "plus", "minus", "multiplied", "divided"
+from operator import add, sub, mul, truediv
+
+OPERATORS = {"plus": add, "minus": sub, "multiplied": mul, "divided": truediv}
 
 
-def calculate(x: int, operator: str, y: int) -> int:
-    match operator:
-        case "plus":
-            return int(x) + int(y)
-        case "minus":
-            return int(x) - int(y)
-        case "multiplied":
-            return int(x) * int(y)
-        case "divided":
-            return int(x) / int(y)
-
-
-def answer(question: str):
+def answer(question: str) -> int:
     question = question.removeprefix("What is").removesuffix("?").strip()
     if len(question) == 1 and question.isdigit():
         return int(question)
@@ -21,9 +11,9 @@ def answer(question: str):
         raise ValueError("syntax error")
 
     question = question.replace("by ", "")
-    question_split = question.split(" ")
+    question_split = question.split()
 
-    if not [operator for operator in question_split if operator in OPERATORS]:
+    if not any(map(lambda operator: operator in OPERATORS, question_split)):
         raise ValueError("unknown operation")
 
     if len(question_split) < 3:
@@ -31,7 +21,7 @@ def answer(question: str):
 
     x, operator, y = question_split[:3]
     if operator in OPERATORS and y[-1].isnumeric():
-        result = calculate(x, operator, y)
+        result = OPERATORS[operator](int(x), int(y))
     else:
         raise ValueError("syntax error")
     match len(question_split):
@@ -39,7 +29,7 @@ def answer(question: str):
             return result
         case 5:
             operator, y = question_split[3:]
-            result = calculate(x=result, operator=operator, y=y)
+            result = OPERATORS[operator](result, int(y))
             return result
         case _:
             raise ValueError("syntax error")
