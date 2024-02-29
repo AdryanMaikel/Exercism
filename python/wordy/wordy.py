@@ -3,7 +3,7 @@ from operator import add, sub, mul, truediv
 OPERATORS = {"plus": add, "minus": sub, "multiplied": mul, "divided": truediv}
 
 
-def answer(question: str) -> int:
+def answer(question: str) -> int | None:
     question = question.removeprefix("What is").removesuffix("?").strip()
     if len(question) == 1 and question.isdigit():
         return int(question)
@@ -13,23 +13,29 @@ def answer(question: str) -> int:
     question = question.replace("by ", "")
     question_split = question.split()
 
-    if not any(map(lambda operator: operator in OPERATORS, question_split)):
+    content_operators = [operator for operator in question_split
+                         if operator in OPERATORS]
+    if not any(content_operators):
         raise ValueError("unknown operation")
 
     if len(question_split) < 3:
         raise ValueError("syntax error")
 
-    x, operator, y = question_split[:3]
+    x = question_split.pop(0)
+    operator = question_split.pop(0)
+    y = question_split.pop(0)
+
     if operator in OPERATORS and y[-1].isnumeric():
         result = OPERATORS[operator](int(x), int(y))
     else:
         raise ValueError("syntax error")
-    match len(question_split):
-        case 3:
-            return result
-        case 5:
-            operator, y = question_split[3:]
+
+    while question_split:
+        try:
+            operator = question_split.pop(0)
+            y = question_split.pop(0)
             result = OPERATORS[operator](result, int(y))
-            return result
-        case _:
+        except Exception:
             raise ValueError("syntax error")
+
+    return result
