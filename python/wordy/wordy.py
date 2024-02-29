@@ -13,29 +13,33 @@ def answer(question: str) -> int | None:
     question = question.replace("by ", "")
     question_split = question.split()
 
-    content_operators = [operator for operator in question_split
-                         if operator in OPERATORS]
-    if not any(content_operators):
+    if not any(operator in OPERATORS for operator in question_split):
         raise ValueError("unknown operation")
 
     if len(question_split) < 3:
         raise ValueError("syntax error")
 
-    x = question_split.pop(0)
-    operator = question_split.pop(0)
-    y = question_split.pop(0)
+    iter_question = iter(question_split)
 
-    if operator in OPERATORS and y[-1].isnumeric():
-        result = OPERATORS[operator](int(x), int(y))
-    else:
+    try:
+        result = int(next(iter_question))
+    except Exception:
         raise ValueError("syntax error")
 
-    while question_split:
+    while True:
         try:
-            operator = question_split.pop(0)
-            y = question_split.pop(0)
-            result = OPERATORS[operator](result, int(y))
-        except Exception:
-            raise ValueError("syntax error")
+            operator = next(iter_question)
+            if operator not in OPERATORS:
+                raise ValueError("syntax error")
 
+            y = next(iter_question)
+            if y in OPERATORS:
+                raise ValueError("syntax error")
+
+            result = OPERATORS[operator](int(result), int(y))
+        except StopIteration:
+            break
     return result
+
+
+print(answer("What is 10 plus 2?"))
