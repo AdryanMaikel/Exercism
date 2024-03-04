@@ -25,7 +25,6 @@ def answer(question: str) -> int | None:
         result = int(next(iter_question))
     except Exception:
         raise ValueError("syntax error")
-
     while True:
         try:
             operator = next(iter_question)
@@ -33,13 +32,15 @@ def answer(question: str) -> int | None:
                 raise ValueError("syntax error")
 
             y = next(iter_question)
-            if y in OPERATORS:
+            try:
+                y = int(y)
+            except Exception:
                 raise ValueError("syntax error")
 
-            result = OPERATORS[operator](int(result), int(y))
+            result = OPERATORS[operator](int(result), y)
         except StopIteration:
             break
     return result
 
 
-print(answer("What is 10 plus 2?"))
+print(answer("What is 1 plus four?"))
