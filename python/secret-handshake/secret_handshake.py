@@ -8,6 +8,3 @@ def commands(binary_str: str) -> list[str]:
     if binary_str.startswith("1"):
         result_command.reverse()
     return result_command
-
-
-print(commands("01111"))
